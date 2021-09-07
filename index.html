@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>colorful.com</title>
+
+    <style>
+        body {
+            background-color: #000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+        }
+
+        #grid {
+            display: grid;
+            padding: 10px;
+            margin: 5px;
+            grid-template-columns: repeat(3, 1fr);
+        }
+
+        input {
+            height: 30px;
+            width: 230px;
+            border: 2px solid white;
+            border-radius: 20px;
+            background-color: #d9d9d9;
+            outline: none;
+            text-align: center;
+        }
+
+        button {
+            width: 100px;
+            height: 40px;
+            border: 2px solid black;
+            color: black;
+            border-radius: 20px;
+            outline: none;
+            transition: all 0.8s;
+            /* font-family: ; */
+        }
+
+        button:active {
+            background-color: black;
+            color: white;
+            border: 2px solid white;
+            transition: all 0.5s;
+        }
+
+        .card {
+            height: 80px;
+            margin: 5px;
+            border: 2px solid rgb(15, 14, 14);
+            border-radius: 20px;
+            width: 20vw;
+            min-width: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #message {
+            color: white;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 10px;
+            width: 335px;
+            border-radius: 17px;
+            border: 2px solid white;
+        }
+
+        #pik {
+            border: 1px solid white;
+            height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            border-style: none none solid none;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+    <h1>colorful.com</h1>
+    <div id="pik">pick the color that is just right for your project</div>
+
+    <div class="container">
+        <input type="text" name="" id="input" placeholder="how many color to generate">
+        <button id="button">generate</button>
+    </div>
+
+    <div id="message">a message</div>
+
+    <div id='grid'></div>
+
+    <script>
+        const button = document.getElementById('button');
+        const input = document.getElementById('input');
+        const message = document.getElementById('message');
+        const grid = document.getElementById('grid');
+
+        function generateColor () {
+            let color = '#';
+            const str = '0123456789abcdef';
+
+            for (let i = 0; i < 6; i++) {
+                let random = Math.floor(Math.random() * str.length);
+                color += str[random];
+            }
+
+            return color;
+        }
+
+        function myFunction () {
+            let theMessage;
+
+            if (input.value == '') {
+                theMessage = 'please input a value'
+            } else if (Number.isNaN(input.value)) {
+                theMessage = 'invalid input value'
+            } else {
+                theMessage = 'input okay';
+
+                val = Number.parseInt(input.value);
+
+                for( let j = 0; j < input.value; j++) {
+                    let gen = generateColor(),
+                        nod = document.createElement('div');
+
+                    nod.classList.add('card');
+                    nod.style.backgroundColor = gen;
+                    nod.innerHTML = gen;
+
+                    grid.appendChild(nod);
+                }
+            }
+
+            message.innerHTML = theMessage;
+        }
+
+        button.addEventListener('click', myFunction)
+    </script>
+</body>
+</html>
